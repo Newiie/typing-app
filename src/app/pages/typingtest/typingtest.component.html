@@ -1,0 +1,12 @@
+<div class="container">
+    <div>
+        <p>
+            <span *ngFor="let c of getColoredSentence()" [style.color]="c.correct ? 'green' : 'red'">{{ c.char }}</span>
+        </p>
+
+        <input type="text" [(ngModel)]="userInput" (input)="onUserInput()" placeholder="Type to start"
+            (copy)="disableEvent($event)" (cut)="disableEvent($event)" (paste)="disableEvent($event)" />
+
+   
+    </div>
+</div>

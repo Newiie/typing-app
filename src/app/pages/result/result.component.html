@@ -1,0 +1,6 @@
+<h1>Results: </h1>
+<p>WPM: {{ getWPM()| number: '1.0-0' }}</p>
+<p>Accuracy: {{ getAccuracy() | number: '1.0-2' }}%</p>
+<p>Correct Characters: {{ getCount().correct }}</p>
+<p>Incorrect Characters: {{ getCount().incorrect }}</p>
+<!-- <button (click)="resetTest()">Reset</button> -->
