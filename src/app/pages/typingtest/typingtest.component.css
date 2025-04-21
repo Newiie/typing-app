@@ -39,5 +39,33 @@ button:hover {
 }
 
 span {
-    font-size: 20px;
+    font-size: 40px;
+    width: 3px;
+}
+
+p {
+    position: relative;
+}
+
+.current-cursor {
+    position: relative;
+}
+
+.current-cursor:after {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 1px;
+    height: 40px;
+    background-color: #e2b714;
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: #e2b714;
+    }
 }

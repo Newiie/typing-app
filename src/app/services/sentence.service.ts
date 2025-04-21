@@ -5,37 +5,28 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SentenceService {
-  private sentence: BehaviorSubject<string>;
-  private userInput: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  private sentenceSubject: BehaviorSubject<string>;
+  private userInputSubject: BehaviorSubject<string>;
+
 
   constructor() {
-    this.sentence = new BehaviorSubject<string>('The quick brown fox jumps over the lazy dog');
+    this.userInputSubject = new BehaviorSubject<string>('');
+    this.sentenceSubject = new BehaviorSubject<string>('The quick brown fox jumps over the lazy dog');
   }
 
   getSentence(): Observable<string> {
-    return this.sentence.asObservable();
+    return this.sentenceSubject.asObservable();
   }
 
   setSentence(newSentence: string): void {
-    this.sentence.next(newSentence);
+    this.sentenceSubject.next(newSentence);
   }
 
   setUserInput(newInput: string): void {
-    this.userInput.next(newInput);
+    this.userInputSubject.next(newInput);
   }
 
   getUserInput(): Observable<string> {
-    return this.userInput.asObservable();
-  }
-
-  getColoredSentence(): { char: string, correct: boolean }[] {
-    const result = [];
-    for (let i = 0; i < this.sentence.getValue().length; i++) {
-      result.push({
-        char: this.userInput.getValue()[i],
-        correct: this.userInput.getValue()[i] === this.sentence.getValue()[i]
-      });
-    }
-    return result;
+    return this.userInputSubject.asObservable();
   }
 }

@@ -8,19 +8,26 @@ import { ResultComponent } from './pages/result/result.component';
 import { SentenceService } from './services/sentence.service';
 import { FormsModule } from '@angular/forms';
 import { StatsService } from './services/stats.service';
+import { LoginComponent } from './pages/login/login.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     TypingtestComponent,
-    ResultComponent
+    ResultComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [SentenceService, StatsService],
+  providers: [
+    SentenceService, 
+    StatsService,
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

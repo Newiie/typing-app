@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { SentenceService } from 'src/app/services/sentence.service';
 import { StatsService } from 'src/app/services/stats.service';
 
@@ -7,11 +8,14 @@ import { StatsService } from 'src/app/services/stats.service';
   templateUrl: './result.component.html',
   styleUrls: ['./result.component.css']
 })
-export class ResultComponent implements OnInit {
+export class ResultComponent implements OnInit, OnDestroy {
   sentence: string = '';
   userInput: string = '';
   countCorrect: number = 0;
   countIncorrect: number = 0;
+
+  private destroy$ = new Subject<void>();
+  
 
   constructor(
     private sentenceService: SentenceService,
@@ -31,16 +35,25 @@ export class ResultComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.sentenceService.getSentence().subscribe((sentence) => {
+    this.sentenceService.getSentence()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((sentence) => {
       this.sentence = sentence;
     });
 
-    this.sentenceService.getUserInput().subscribe((userInput) => {
+    this.sentenceService.getUserInput()
+    .pipe(takeUntil(this.destroy$))
+    .subscribe((userInput) => {
       this.userInput = userInput;
     });
 
     console.log("Sentence: ", this.sentence);
     console.log("User Input: ", this.userInput);
     console.log("Count: ", this.getCount());
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
